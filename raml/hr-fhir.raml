@@ -12,7 +12,7 @@ types:
     description: |
       Any combination of upper or lower case ASCII letters ('A'..'Z', and 'a'..'z', numerals ('0'..'9'), '-' and '.', with a length limit of 64 characters.
       (This might be an integer, an un-prefixed OID, UUID or any other identifier pattern that meets these constraints.)
-  base64Binary:                 string
+  base64Binary: string
   code:
     type: string
     #pattern: [^\s]+([\s]+[^\s]+)*
@@ -54,7 +54,7 @@ types:
     type: integer
     minimum: 0
   resourceName:
-	type: string
+    type: string
   time:
     type: string
     pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?$
@@ -71,6 +71,7 @@ types:
   xhtml:
     type: string
     description: A string that may contain XHTML syntax for optional processing
+
   #Elements
   Extension:
     properties:
@@ -96,7 +97,7 @@ types:
       postalCode?: string
       country?: string
       period?: Period
-  Age:                          Quantity
+  Age: Quantity
   Annotation:
     type: Element
     properties:
@@ -209,7 +210,7 @@ types:
                 properties:
                   type:
                     type: code
-                    enum: [] # Resource Type list TODO:
+                    enum: [] #Resource Type list TODO:
                   profile?: Reference
                   interaction:
                     type: array
@@ -454,7 +455,7 @@ types:
   DomainResource:
     type: Resource
     properties:
-      # where is resourceType defined in the spec?
+      #where is resourceType defined in the spec?
       resourceType: string
       text?:
         type: Narrative
@@ -573,7 +574,6 @@ types:
             detail?: Reference[]
       bodySite?: CodeableConcept[]
       notes?:
-
   MedicationOrder:
     type: DomainResource
     properties:
@@ -735,7 +735,6 @@ types:
             type: code
             enum: [replace, refer, seealso]
 
-
   #Entries
   Entry:
     type: BackboneElement
@@ -799,7 +798,6 @@ types:
     properties:
       resource?: Patient
 
-
   #Bundles
   Bundle:
     type: Resource
@@ -842,8 +840,6 @@ types:
     type: Bundle
     properties:
       entry?: PatientEntry[]
-
-
 
 resourceTypes:
   fhirResourceType:
@@ -926,7 +922,7 @@ resourceTypes:
         body:
           application/x-www-form-urlencoded:
             properties:
-              # parameters for all resources
+              #parameters for all resources
               _id:
                 required: false
                 description: Resource id (not a full URL)
@@ -983,8 +979,8 @@ resourceTypes:
                 type: <<bundleName>>
       get:
         description: This interaction searches a set of resources based on some filter criteria.
-      #  is: [{search: { bundleName: <<bundleName>>}}]
-      #  is: [search]
+        #is: [{search: { bundleName: <<bundleName>>}}]
+        #is: [search]
         responses:
           200:
             body:
@@ -998,7 +994,6 @@ resourceTypes:
       get:
         description: The history interaction retrieves the history of either a particular resource or all resources of a given type.
         is: [{history: { bundleName: <<bundleName>>}}]
-
 
 traits:
   vread:
@@ -1062,7 +1057,7 @@ traits:
             example: '1.0'
   search:
     queryParameters:
-      # parameters for all resources
+      #parameters for all resources
       _id:
         required: false
         description: Resource id (not a full URL)
@@ -1133,7 +1128,7 @@ traits:
             type: <<bundleName>>
   conditionalOperation:
     queryParameters:
-            # parameters for all resources
+      #parameters for all resources
       _id:
         required: false
         description: Resource id (not a full URL)
@@ -1161,12 +1156,12 @@ traits:
       _query:
         required: false
 
-  # resource specific
+  #resource specific
   allergyIntoleranceSearch:
     queryParameters:
       category:
         required: false
-        description?: food | medication | environment | other - Category of Substance
+        description: food | medication | environment | other - Category of Substance
       criticality:
         required: false
         description: CRITL | CRITH | CRITU
@@ -1200,7 +1195,7 @@ traits:
         description: How the subject was exposed to the substance
       severity:
         required: false
-        descriptionmedication: mild | moderate | severe (of event as a whole)
+        description: mild | moderate | severe (of event as a whole)
       status:
         required: false
         description: active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error
@@ -2202,51 +2197,50 @@ traits:
             required: false
             description: Appointment date/time
 
-### API definition ###
+## API definition ##
 /Patient:
-  type: {fhirResourceType: {
-      postExample :
-      {
+  type: {
+    fhirResourceType: {
+      postExample: {
         "resourceType": "Patient",
         "address": [
           {
-              "city": "San Francisco",
-              "country": "United States of America",
-              "line": [
-                "499 Folsom Street"
-              ],
-              "postalCode": "90354",
-              "state": "California"
-            }
-          ],
-          "birthDate": "1970-02-12",
-          "careProvider": [
-            {
-              "reference": "Practitioner/1"
-            }
-          ],
-          "gender": "male",
-          "name": [
-            {
-              "use": "official",
-              "family": [
-                "Radonctest"
-              ],
-              "given": [
-                "Veera"
-              ]
-            }
-          ],
-          "telecom": [
-            {
-              "system": "phone",
-              "use": "home",
-              "value": "608-999-9005"
-            }
-          ]
-        },
-      getExample  :
-      {
+            "city": "San Francisco",
+            "country": "United States of America",
+            "line": [
+              "499 Folsom Street"
+            ],
+            "postalCode": "90354",
+            "state": "California"
+          }
+        ],
+        "birthDate": "1970-02-12",
+        "careProvider": [
+          {
+            "reference": "Practitioner/1"
+          }
+        ],
+        "gender": "male",
+        "name": [
+          {
+            "use": "official",
+            "family": [
+              "Radonctest"
+            ],
+            "given": [
+              "Veera"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "use": "home",
+            "value": "608-999-9005"
+          }
+        ]
+      },
+      getExample: {
         "resourceType": "Bundle",
         "type": "searchset",
         "link": [
@@ -2360,9 +2354,9 @@ traits:
     type: { fhirHistory: { bundleName: PatientBundle } }
     is: [ patientSearch ]
   /{id}:
-    type: {fhirResource: {
-      getSingleExample:
-        {
+    type: {
+      fhirResource: {
+        getSingleExample: {
           "resourceType": "Patient",
           "id": "9",
           "address": [
@@ -2402,8 +2396,7 @@ traits:
             }
           ]
         },
-      putExample:
-        {
+        putExample: {
           "resourceType": "Patient",
           "id" : "9",
           "address": [
@@ -2448,667 +2441,691 @@ traits:
     /_history:
       type: { fhirHistory: { bundleName: PatientBundle } }
     /{vid}:
-        type: { fhirVersionedResource: { resourceName: Patient } }
+      type: { fhirVersionedResource: { resourceName: Patient } }
     /Condition:
-      type:  { fhirCompartment: {
-		  example: {
-			"resourceType": "Bundle",
-			"type": "searchset",
-			"link": [
-			  {
-				"relation": "self",
-				"url": "http://localhost:8081/hr-fhir-api/Condition?patient=Patient%2F9"
-			  }
-			],
-			"meta": {
-			  "lastUpdated": "2016-09-21T13:46:17.878Z"
-			},
-			"total": 5,
-			"entry": [
-			  {
-				"fullUrl": "http://localhost:8081/hr-fhir-api/Condition/1",
-				"resource": {
-				  "resourceType": "Condition",
-				  "id": "1",
-				  "patient": {
-					"reference": "Patient/9"
-				  },
-				  "asserter": {
-					"reference": "Patient/9",
-					"display": ""
-				  },
-				  "code": {
-					"coding": [
-					  {
-						"code": "195967001",
-						"display": "Asthma",
-						"system": "http://snomed.info/sct"
-					  }
-					]
-				  },
-				  "verificationStatus": "confirmed",
-				  "onsetDateTime": "2016-05-10"
-				}
-			  },
-			  {
-				"fullUrl": "http://localhost:8081/hr-fhir-api/Condition/2",
-				"resource": {
-				  "resourceType": "Condition",
-				  "id": "2",
-				  "patient": {
-					"reference": "Patient/9"
-				  },
-				  "asserter": {
-					"reference": "Patient/9",
-					"display": ""
-				  },
-				  "code": {
-					"coding": [
-					  {
-						"code": "73211009",
-						"display": "Diabetes mellitus",
-						"system": "http://snomed.info/sct"
-					  }
-					]
-				  },
-				  "verificationStatus": "confirmed",
-				  "onsetDateTime": "2016-05-11"
-				}
-			  },
-			  {
-				"fullUrl": "http://localhost:8081/hr-fhir-api/Condition/3",
-				"resource": {
-				  "resourceType": "Condition",
-				  "id": "3",
-				  "patient": {
-					"reference": "Patient/9"
-				  },
-				  "asserter": {
-					"reference": "Patient/9",
-					"display": ""
-				  },
-				  "code": {
-					"coding": [
-					  {
-						"code": "38341003",
-						"display": "High Blood Pressure",
-						"system": "http://snomed.info/sct"
-					  }
-					]
-				  },
-				  "verificationStatus": "refuted",
-				  "onsetDateTime": "2016-05-11"
-				}
-			  },
-			  {
-				"fullUrl": "http://localhost:8081/hr-fhir-api/Condition/4",
-				"resource": {
-				  "resourceType": "Condition",
-				  "id": "4",
-				  "patient": {
-					"reference": "Patient/9"
-				  },
-				  "asserter": {
-					"reference": "Patient/9",
-					"display": ""
-				  },
-				  "code": {
-					"coding": [
-					  {
-						"code": "13644009",
-						"display": "High Cholesterol",
-						"system": "http://snomed.info/sct"
-					  }
-					]
-				  },
-				  "verificationStatus": "unknown",
-				  "onsetDateTime": "2016-05-11"
-				}
-			  },
-			  {
-				"fullUrl": "http://localhost:8081/hr-fhir-api/Condition/5",
-				"resource": {
-				  "resourceType": "Condition",
-				  "id": "5",
-				  "patient": {
-					"reference": "Patient/9"
-				  },
-				  "asserter": {
-					"reference": "Patient/9",
-					"display": ""
-				  },
-				  "code": {
-					"coding": [
-					  {
-						"code": "22298006",
-						"display": "Heart Attack",
-						"system": "http://snomed.info/sct"
-					  }
-					]
-				  },
-				  "verificationStatus": "unknown",
-				  "onsetDateTime": "2016-05-11"
-				}
-			  }
-			]
-		  }
-	  } }
+      type:  {
+        fhirCompartment: {
+          example: {
+            "resourceType": "Bundle",
+            "type": "searchset",
+            "link": [
+              {
+                "relation": "self",
+                "url": "http://localhost:8081/hr-fhir-api/Condition?patient=Patient%2F9"
+              }
+            ],
+            "meta": {
+              "lastUpdated": "2016-09-21T13:46:17.878Z"
+            },
+            "total": 5,
+            "entry": [
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Condition/1",
+                "resource": {
+                  "resourceType": "Condition",
+                  "id": "1",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "asserter": {
+                    "reference": "Patient/9",
+                    "display": ""
+                  },
+                  "code": {
+                    "coding": [
+                      {
+                        "code": "195967001",
+                        "display": "Asthma",
+                        "system": "http://snomed.info/sct"
+                      }
+                    ]
+                  },
+                  "verificationStatus": "confirmed",
+                  "onsetDateTime": "2016-05-10"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Condition/2",
+                "resource": {
+                  "resourceType": "Condition",
+                  "id": "2",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "asserter": {
+                    "reference": "Patient/9",
+                    "display": ""
+                  },
+                  "code": {
+                    "coding": [
+                      {
+                        "code": "73211009",
+                        "display": "Diabetes mellitus",
+                        "system": "http://snomed.info/sct"
+                      }
+                    ]
+                  },
+                  "verificationStatus": "confirmed",
+                  "onsetDateTime": "2016-05-11"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Condition/3",
+                "resource": {
+                  "resourceType": "Condition",
+                  "id": "3",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "asserter": {
+                    "reference": "Patient/9",
+                    "display": ""
+                  },
+                  "code": {
+                    "coding": [
+                      {
+                        "code": "38341003",
+                        "display": "High Blood Pressure",
+                        "system": "http://snomed.info/sct"
+                      }
+                    ]
+                  },
+                  "verificationStatus": "refuted",
+                  "onsetDateTime": "2016-05-11"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Condition/4",
+                "resource": {
+                  "resourceType": "Condition",
+                  "id": "4",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "asserter": {
+                    "reference": "Patient/9",
+                    "display": ""
+                  },
+                  "code": {
+                    "coding": [
+                      {
+                        "code": "13644009",
+                        "display": "High Cholesterol",
+                        "system": "http://snomed.info/sct"
+                      }
+                    ]
+                  },
+                  "verificationStatus": "unknown",
+                  "onsetDateTime": "2016-05-11"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Condition/5",
+                "resource": {
+                  "resourceType": "Condition",
+                  "id": "5",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "asserter": {
+                    "reference": "Patient/9",
+                    "display": ""
+                  },
+                  "code": {
+                    "coding": [
+                      {
+                        "code": "22298006",
+                        "display": "Heart Attack",
+                        "system": "http://snomed.info/sct"
+                      }
+                    ]
+                  },
+                  "verificationStatus": "unknown",
+                  "onsetDateTime": "2016-05-11"
+                }
+              }
+            ]
+          }
+        }
+      }
       is: [ conditionSearch ]
     /Observation:
-      type: { fhirCompartment: { example: {
-        "resourceType": "Bundle",
-        "type": "searchset",
-        "link": [
-          {
-            "relation": "self",
-            "url": "http://localhost:8081/hr-fhir-api/Observation"
-          }
-        ],
-        "meta": {
-          "lastUpdated": "2016-09-20T12:39:31.578Z"
-        },
-        "total": 1,
-        "entry": [
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/Observation/1",
-            "resource": {
-              "resourceType": "Observation",
-              "id": "455454",
-              "status": "final",
-              "category": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/observation-category",
-                    "code": "vital-signs",
-                    "display": "Vital Signs"
-                  }
-                ]
-              },
-              "code": {
-                "coding": [
-                  {
-                    "system": "http://loinc.org",
-                    "code": "3141-9",
-                    "display": "Weight Measured"
-                  },
-                  {
-                    "system": "http://snomed.info/sct",
-                    "code": "27113001",
-                    "display": "Body weight"
-                  },
-                  {
-                    "system": "http://acme.org/devices/clinical-codes",
-                    "code": "body-weight",
-                    "display": "Body Weight"
-                  }
-                ]
-              },
-              "subject": {
-                "reference": "Patient/5646546"
-              },
-              "encounter": {
-                "reference": "Encounter/654654"
-              },
-              "valueQuantity": {
-                "value": 185,
-                "unit": "lbs",
-                "system": "http://unitsofmeasure.org",
-                "code": "[lb_av]"
+      type: {
+        fhirCompartment: {
+          example: {
+            "resourceType": "Bundle",
+            "type": "searchset",
+            "link": [
+              {
+                "relation": "self",
+                "url": "http://localhost:8081/hr-fhir-api/Observation"
               }
-            }
+            ],
+            "meta": {
+              "lastUpdated": "2016-09-20T12:39:31.578Z"
+            },
+            "total": 1,
+            "entry": [
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Observation/1",
+                "resource": {
+                  "resourceType": "Observation",
+                  "id": "455454",
+                  "status": "final",
+                  "category": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/observation-category",
+                        "code": "vital-signs",
+                        "display": "Vital Signs"
+                      }
+                    ]
+                  },
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://loinc.org",
+                        "code": "3141-9",
+                        "display": "Weight Measured"
+                      },
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "27113001",
+                        "display": "Body weight"
+                      },
+                      {
+                        "system": "http://acme.org/devices/clinical-codes",
+                        "code": "body-weight",
+                        "display": "Body Weight"
+                      }
+                    ]
+                  },
+                  "subject": {
+                    "reference": "Patient/5646546"
+                  },
+                  "encounter": {
+                    "reference": "Encounter/654654"
+                  },
+                  "valueQuantity": {
+                    "value": 185,
+                    "unit": "lbs",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "[lb_av]"
+                  }
+                }
+              }
+            ]
           }
-        ]
-      }} }
+        }
+      }
       is: [ observationSearch ]
     /MedicationOrder:
-      type: { fhirCompartment: { example: {
-        "resourceType": "Bundle",
-        "type": "searchset",
-        "link": [
-          {
-            "relation": "self",
-            "url": "http://localhost:8081/hr-fhir-api/MedicationOrder"
-          }
-        ],
-        "meta": {
-          "lastUpdated": "2016-09-20T12:39:31.578Z"
-        },
-        "total": 1,
-        "entry": [
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/MedicationOrder/1",
-            "resource": {
-              "resourceType": "MedicationOrder",
-              "identifier": ["value": "5245"],
-              "status": "active",
-              "patient": {
-                "reference": "Patient/1164365"
-              },
-              "prescriber": {
-                "reference": "Practitioner/3656"
-              },
-              "dosageInstruction": [
-                {
-                  "text": "Take 3 mg by mouth Daily."
-                },
-                {
-                  "doseQuantity": {
-                    "value": "3",
-                    "unit": "mg",
-                    "system": "http://unitsofmeasure.org",
-                    "code": "mg"
+      type: {
+        fhirCompartment: {
+          example: {
+            "resourceType": "Bundle",
+            "type": "searchset",
+            "link": [
+              {
+                "relation": "self",
+                "url": "http://localhost:8081/hr-fhir-api/MedicationOrder"
+              }
+            ],
+            "meta": {
+              "lastUpdated": "2016-09-20T12:39:31.578Z"
+            },
+            "total": 1,
+            "entry": [
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/MedicationOrder/1",
+                "resource": {
+                  "resourceType": "MedicationOrder",
+                  "identifier": ["value": "5245"],
+                  "status": "active",
+                  "patient": {
+                    "reference": "Patient/1164365"
+                  },
+                  "prescriber": {
+                    "reference": "Practitioner/3656"
+                  },
+                  "dosageInstruction": [
+                    {
+                      "text": "Take 3 mg by mouth Daily."
+                    },
+                    {
+                      "doseQuantity": {
+                        "value": "3",
+                        "unit": "mg",
+                        "system": "http://unitsofmeasure.org",
+                        "code": "mg"
+                      }
+                    }
+                  ],
+                  "medicationCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "Internal",
+                        "code": "78064"
+                      },
+                      {
+                        "system": "RxNorm",
+                        "code": "679314"
+                      }
+                    ],
+                    "text": "PALIPERIDONE ER 3 MG TABLET,EXTENDED RELEASE 24 HR"
+                  },
+                  "medication": {
+                    "display": "paliperidone"
+                  },
+                  "reason": {
+                    "display": "mania"
                   }
                 }
-              ],
-              "medicationCodeableConcept": {
-                "coding": [
-                  {
-                    "system": "Internal",
-                    "code": "78064"
-                  },
-                  {
-                    "system": "RxNorm",
-                    "code": "679314"
-                  }
-                ],
-                "text": "PALIPERIDONE ER 3 MG TABLET,EXTENDED RELEASE 24 HR"
               }
-            }
+            ]
           }
-        ]
-      }}}
+        }
+      }
       is: [ medicationOrderSearch ]
     /Appointment:
-      type: { fhirCompartment: { example: {
-        "resourceType": "Bundle",
-        "type": "searchset",
-        "link": [
-          {
-            "relation": "self",
-            "url": "http://localhost:8081/hr-fhir-api/Appointment?patient=Patient%2F9"
+      type: {
+        fhirCompartment: {
+          example: {
+            "resourceType": "Bundle",
+            "type": "searchset",
+            "link": [
+              {
+                "relation": "self",
+                "url": "http://localhost:8081/hr-fhir-api/Appointment?patient=Patient%2F9"
+              }
+            ],
+            "meta": {
+              "lastUpdated": "2016-09-20T12:28:41.776Z"
+            },
+            "total": 7,
+            "entry": [
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/3",
+                "resource": {
+                  "resourceType": "Appointment",
+                  "identifier": [{"value":"3"}],
+                  "description": "",
+                  "start": "2016-10-28T14:30:00+00:00",
+                  "end": "2016-10-28T15:00:00+00:00",
+                  "participant": [
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Patient/9",
+                        "display": "Andreas Anderson"
+                      }
+                    },
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Practitioner/1",
+                        "display": "Jamie Fletcher, MD"
+                      }
+                    }
+                  ],
+                  "status": "booked",
+                  "slot": [
+                    {
+                      "reference": "Slot/15"
+                    }
+                  ]
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/4",
+                "resource": {
+                  "resourceType": "Appointment",
+                  "id": "4",
+                  "description": "",
+                  "start": "2016-10-28T15:00:00+00:00",
+                  "end": "2016-10-28T15:30:00+00:00",
+                  "participant": [
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Patient/9",
+                        "display": "Andreas Anderson"
+                      }
+                    },
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Practitioner/1",
+                        "display": "Jamie Fletcher, MD"
+                      }
+                    }
+                  ],
+                  "status": "booked",
+                  "slot": [
+                    {
+                      "reference": "Slot/16"
+                    }
+                  ]
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/5",
+                "resource": {
+                  "resourceType": "Appointment",
+                  "id": "5",
+                  "description": "",
+                  "start": "2016-10-28T14:00:00+00:00",
+                  "end": "2016-10-28T14:30:00+00:00",
+                  "participant": [
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Patient/9",
+                        "display": "Andreas Anderson"
+                      }
+                    },
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Practitioner/1",
+                        "display": "Jamie Fletcher, MD"
+                      }
+                    }
+                  ],
+                  "status": "booked",
+                  "slot": [
+                    {
+                      "reference": "Slot/14"
+                    }
+                  ]
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/9",
+                "resource": {
+                  "resourceType": "Appointment",
+                  "id": "9",
+                  "description": "",
+                  "start": "2016-09-12T16:30:00+00:00",
+                  "end": "2016-09-12T17:00:00+00:00",
+                  "participant": [
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Patient/9",
+                        "display": "Veera Radonctest"
+                      }
+                    },
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Practitioner/1",
+                        "display": "Jamie Fletcher, MD"
+                      }
+                    }
+                  ],
+                  "status": "booked",
+                  "slot": [
+                    {
+                      "reference": "Slot/25"
+                    }
+                  ]
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/10",
+                "resource": {
+                  "resourceType": "Appointment",
+                  "id": "10",
+                  "description": "",
+                  "start": "2016-09-16T16:30:00+00:00",
+                  "end": "2016-09-16T17:00:00+00:00",
+                  "participant": [
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Patient/9",
+                        "display": "Veera Radonctest"
+                      }
+                    },
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Practitioner/1",
+                        "display": "Jamie Fletcher, MD"
+                      }
+                    }
+                  ],
+                  "status": "booked",
+                  "slot": [
+                    {
+                      "reference": "Slot/23"
+                    }
+                  ]
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/11",
+                "resource": {
+                  "resourceType": "Appointment",
+                  "id": "11",
+                  "description": "",
+                  "start": "2016-09-14T16:30:00+00:00",
+                  "end": "2016-09-14T17:00:00+00:00",
+                  "participant": [
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Patient/9",
+                        "display": "Veera Radonctest"
+                      }
+                    },
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Practitioner/1",
+                        "display": "Jamie Fletcher, MD"
+                      }
+                    }
+                  ],
+                  "status": "booked",
+                  "slot": [
+                    {
+                      "reference": "Slot/24"
+                    }
+                  ]
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/14",
+                "resource": {
+                  "resourceType": "Appointment",
+                  "id": "14",
+                  "description": "",
+                  "start": "2016-09-15T15:30:00+00:00",
+                  "end": "2016-09-15T16:00:00+00:00",
+                  "participant": [
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Patient/9",
+                        "display": "Veera Radonctest"
+                      }
+                    },
+                    {
+                      "status": "accepted",
+                      "actor": {
+                        "reference": "Practitioner/1",
+                        "display": "Jamie Fletcher, MD"
+                      }
+                    }
+                  ],
+                  "status": "booked",
+                  "slot": [
+                    {
+                      "reference": "Slot/21"
+                    }
+                  ]
+                }
+              }
+            ]
           }
-        ],
-        "meta": {
-          "lastUpdated": "2016-09-20T12:28:41.776Z"
-        },
-        "total": 7,
-        "entry": [
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/3",
-            "resource": {
-              "resourceType": "Appointment",
-              "identifier": [{"value":"3"}],
-              "description": "",
-              "start": "2016-10-28T14:30:00+00:00",
-              "end": "2016-10-28T15:00:00+00:00",
-              "participant": [
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Patient/9",
-                    "display": "Andreas Anderson"
-                  }
-                },
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Practitioner/1",
-                    "display": "Jamie Fletcher, MD"
-                  }
-                }
-              ],
-              "status": "booked",
-              "slot": [
-                {
-                  "reference": "Slot/15"
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/4",
-            "resource": {
-              "resourceType": "Appointment",
-              "id": "4",
-              "description": "",
-              "start": "2016-10-28T15:00:00+00:00",
-              "end": "2016-10-28T15:30:00+00:00",
-              "participant": [
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Patient/9",
-                    "display": "Andreas Anderson"
-                  }
-                },
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Practitioner/1",
-                    "display": "Jamie Fletcher, MD"
-                  }
-                }
-              ],
-              "status": "booked",
-              "slot": [
-                {
-                  "reference": "Slot/16"
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/5",
-            "resource": {
-              "resourceType": "Appointment",
-              "id": "5",
-              "description": "",
-              "start": "2016-10-28T14:00:00+00:00",
-              "end": "2016-10-28T14:30:00+00:00",
-              "participant": [
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Patient/9",
-                    "display": "Andreas Anderson"
-                  }
-                },
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Practitioner/1",
-                    "display": "Jamie Fletcher, MD"
-                  }
-                }
-              ],
-              "status": "booked",
-              "slot": [
-                {
-                  "reference": "Slot/14"
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/9",
-            "resource": {
-              "resourceType": "Appointment",
-              "id": "9",
-              "description": "",
-              "start": "2016-09-12T16:30:00+00:00",
-              "end": "2016-09-12T17:00:00+00:00",
-              "participant": [
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Patient/9",
-                    "display": "Veera Radonctest"
-                  }
-                },
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Practitioner/1",
-                    "display": "Jamie Fletcher, MD"
-                  }
-                }
-              ],
-              "status": "booked",
-              "slot": [
-                {
-                  "reference": "Slot/25"
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/10",
-            "resource": {
-              "resourceType": "Appointment",
-              "id": "10",
-              "description": "",
-              "start": "2016-09-16T16:30:00+00:00",
-              "end": "2016-09-16T17:00:00+00:00",
-              "participant": [
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Patient/9",
-                    "display": "Veera Radonctest"
-                  }
-                },
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Practitioner/1",
-                    "display": "Jamie Fletcher, MD"
-                  }
-                }
-              ],
-              "status": "booked",
-              "slot": [
-                {
-                  "reference": "Slot/23"
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/11",
-            "resource": {
-              "resourceType": "Appointment",
-              "id": "11",
-              "description": "",
-              "start": "2016-09-14T16:30:00+00:00",
-              "end": "2016-09-14T17:00:00+00:00",
-              "participant": [
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Patient/9",
-                    "display": "Veera Radonctest"
-                  }
-                },
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Practitioner/1",
-                    "display": "Jamie Fletcher, MD"
-                  }
-                }
-              ],
-              "status": "booked",
-              "slot": [
-                {
-                  "reference": "Slot/24"
-                }
-              ]
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/Appointment/14",
-            "resource": {
-              "resourceType": "Appointment",
-              "id": "14",
-              "description": "",
-              "start": "2016-09-15T15:30:00+00:00",
-              "end": "2016-09-15T16:00:00+00:00",
-              "participant": [
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Patient/9",
-                    "display": "Veera Radonctest"
-                  }
-                },
-                {
-                  "status": "accepted",
-                  "actor": {
-                    "reference": "Practitioner/1",
-                    "display": "Jamie Fletcher, MD"
-                  }
-                }
-              ],
-              "status": "booked",
-              "slot": [
-                {
-                  "reference": "Slot/21"
-                }
-              ]
-            }
-          }
-        ]
-      }}}
+        }
+      }
       is: [ appointmentSearch ]
     /AllergyIntolerance:
-      type: { fhirCompartment: { example: {
-        "resourceType": "Bundle",
-        "type": "searchset",
-        "link": [
-          {
-            "relation": "self",
-            "url": "http://localhost:8081/hr-fhir-api/AllergyIntolerance?patient=Patient%2F9"
+      type: {
+        fhirCompartment: {
+          example: {
+            "resourceType": "Bundle",
+            "type": "searchset",
+            "link": [
+              {
+                "relation": "self",
+                "url": "http://localhost:8081/hr-fhir-api/AllergyIntolerance?patient=Patient%2F9"
+              }
+            ],
+            "meta": {
+              "lastUpdated": "2016-09-20T12:25:15.712Z"
+            },
+            "total": 6,
+            "entry": [
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/1",
+                "resource": {
+                  "resourceType": "AllergyIntolerance",
+                  "id": "1",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "reporter": {
+                    "reference": "Patient/9"
+                  },
+                  "substance": {
+                    "coding": [
+                      {
+                        "display": "Peanuts"
+                      }
+                    ]
+                  },
+                  "recordedDate": "2016-05-11",
+                  "status": "confirmed"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/2",
+                "resource": {
+                  "resourceType": "AllergyIntolerance",
+                  "id": "2",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "reporter": {
+                    "reference": "Patient/9"
+                  },
+                  "substance": {
+                    "coding": [
+                      {
+                        "display": "Aspirin"
+                      }
+                    ]
+                  },
+                  "recordedDate": "2016-05-11",
+                  "status": "refuted"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/3",
+                "resource": {
+                  "resourceType": "AllergyIntolerance",
+                  "id": "3",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "reporter": {
+                    "reference": "Patient/9"
+                  },
+                  "substance": {
+                    "coding": [
+                      {
+                        "display": "Penicillin"
+                      }
+                    ]
+                  },
+                  "recordedDate": "2016-05-11",
+                  "status": "unconfirmed"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/4",
+                "resource": {
+                  "resourceType": "AllergyIntolerance",
+                  "id": "4",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "reporter": {
+                    "reference": "Patient/9"
+                  },
+                  "substance": {
+                    "coding": [
+                      {
+                        "display": "Gluten"
+                      }
+                    ]
+                  },
+                  "recordedDate": "2016-05-11",
+                  "status": "unconfirmed"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/5",
+                "resource": {
+                  "resourceType": "AllergyIntolerance",
+                  "id": "5",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "reporter": {
+                    "reference": "Patient/9"
+                  },
+                  "substance": {
+                    "coding": [
+                      {
+                        "display": "Dairy products"
+                      }
+                    ]
+                  },
+                  "recordedDate": "2016-05-11",
+                  "status": "unconfirmed"
+                }
+              },
+              {
+                "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/6",
+                "resource": {
+                  "resourceType": "AllergyIntolerance",
+                  "id": "6",
+                  "patient": {
+                    "reference": "Patient/9"
+                  },
+                  "reporter": {
+                    "reference": "Patient/9"
+                  },
+                  "substance": {
+                    "coding": [
+                      {
+                        "display": "Morphine"
+                      }
+                    ]
+                  },
+                  "recordedDate": "2016-05-11",
+                  "status": "unconfirmed"
+                }
+              }
+            ]
           }
-        ],
-        "meta": {
-          "lastUpdated": "2016-09-20T12:25:15.712Z"
-        },
-        "total": 6,
-        "entry": [
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/1",
-            "resource": {
-              "resourceType": "AllergyIntolerance",
-              "id": "1",
-              "patient": {
-                "reference": "Patient/9"
-              },
-              "reporter": {
-                "reference": "Patient/9"
-              },
-              "substance": {
-                "coding": [
-                  {
-                    "display": "Peanuts"
-                  }
-                ]
-              },
-              "recordedDate": "2016-05-11",
-              "status": "confirmed"
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/2",
-            "resource": {
-              "resourceType": "AllergyIntolerance",
-              "id": "2",
-              "patient": {
-                "reference": "Patient/9"
-              },
-              "reporter": {
-                "reference": "Patient/9"
-              },
-              "substance": {
-                "coding": [
-                  {
-                    "display": "Aspirin"
-                  }
-                ]
-              },
-              "recordedDate": "2016-05-11",
-              "status": "refuted"
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/3",
-            "resource": {
-              "resourceType": "AllergyIntolerance",
-              "id": "3",
-              "patient": {
-                "reference": "Patient/9"
-              },
-              "reporter": {
-                "reference": "Patient/9"
-              },
-              "substance": {
-                "coding": [
-                  {
-                    "display": "Penicillin"
-                  }
-                ]
-              },
-              "recordedDate": "2016-05-11",
-              "status": "unconfirmed"
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/4",
-            "resource": {
-              "resourceType": "AllergyIntolerance",
-              "id": "4",
-              "patient": {
-                "reference": "Patient/9"
-              },
-              "reporter": {
-                "reference": "Patient/9"
-              },
-              "substance": {
-                "coding": [
-                  {
-                    "display": "Gluten"
-                  }
-                ]
-              },
-              "recordedDate": "2016-05-11",
-              "status": "unconfirmed"
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/5",
-            "resource": {
-              "resourceType": "AllergyIntolerance",
-              "id": "5",
-              "patient": {
-                "reference": "Patient/9"
-              },
-              "reporter": {
-                "reference": "Patient/9"
-              },
-              "substance": {
-                "coding": [
-                  {
-                    "display": "Dairy products"
-                  }
-                ]
-              },
-              "recordedDate": "2016-05-11",
-              "status": "unconfirmed"
-            }
-          },
-          {
-            "fullUrl": "http://localhost:8081/hr-fhir-api/AllergyIntolerance/6",
-            "resource": {
-              "resourceType": "AllergyIntolerance",
-              "id": "6",
-              "patient": {
-                "reference": "Patient/9"
-              },
-              "reporter": {
-                "reference": "Patient/9"
-              },
-              "substance": {
-                "coding": [
-                  {
-                    "display": "Morphine"
-                  }
-                ]
-              },
-              "recordedDate": "2016-05-11",
-              "status": "unconfirmed"
-            }
-          }
-        ]
-      }}}
+        }
+      }
       is: [ allergyIntoleranceSearch ]
   /_search:
     type: { fhirSearch: { bundleName: PatientBundle } }
