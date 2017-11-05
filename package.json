@@ -12,9 +12,9 @@
     "prod"
   ],
   "scripts": {
-    "build": "./script/build",
-    "start": "./script/server",
-    "test": "./script/test",
+    "build": "node ./script/build.js",
+    "start": "node ./script/server.js",
+    "test": "node ./script/test.js",
     "electron-test": "ember electron:test",
     "translation-sync": "babel-node script/translation/sync.js --presets es2015 && eslint --fix app/locales"
   },
